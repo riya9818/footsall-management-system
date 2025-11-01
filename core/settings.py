@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # third-party
     'tailwind',
      'theme' # our upcoming Tailwind app
+     'main'
 
 ]
 
