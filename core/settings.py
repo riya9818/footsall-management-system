@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # third-party
+    'tailwind',
+     'theme' # our upcoming Tailwind app
+
 ]
 
 MIDDLEWARE = [
@@ -130,3 +134,10 @@ TEMPLATES[0]['DIRS'] = [BASE_DIR / 'templates']
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Tailwind
+TAILWIND_APP_NAME = 'theme'
+INTERNAL_IPS = ["127.0.0.1"]
+
+# Optional (for hot reload during development)
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"  # adjust for your OS
