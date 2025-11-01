@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Footsall Management System{% endblock %}</title>
+    {% load static %}
+    <link href="{% static 'css/dist/styles.css' %}" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <nav class="bg-blue-600 text-white p-4">
+        <h1 class="text-2xl font-bold">⚽ Footsall Manager</h1>
+    </nav>
+
+    <main class="container mx-auto mt-8">
+        {% block content %}
+        <h2 class="text-lg">Welcome to the system!</h2>
+        {% endblock %}
+    </main>
+</body>
+</html>
