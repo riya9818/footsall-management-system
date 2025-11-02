@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third-party
     'tailwind',
-     'theme' # our upcoming Tailwind app
+     'theme', # our upcoming Tailwind app
      'main'
 
 ]
