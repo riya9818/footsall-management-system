@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
-{% block title %}Home - Footsall{% endblock %}
+{% block title %}Home{% endblock %}
+
 {% block content %}
-<div class="text-center py-10">
-    <h1 class="text-4xl font-bold text-blue-700">Welcome to Footsall Management</h1>
-    <p class="mt-4 text-gray-600">Manage players, teams, bookings, and tournaments easily.</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">Footsall</a>
+  </div>
+</nav>
+
+<div class="container text-center mt-5">
+  <h1 class="display-4">Welcome to Footsall Management System ⚽</h1>
+  <p class="lead text-muted">Manage your futsal bookings, teams, and matches efficiently.</p>
+  <a href="#" class="btn btn-primary btn-lg mt-3">Get Started</a>
 </div>
 {% endblock %}
