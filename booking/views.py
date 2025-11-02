@@ -1,5 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def users_home(request):
+def booking_home(request):
     return HttpResponse("Booking app working!")
