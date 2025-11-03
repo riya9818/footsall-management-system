@@ -17,11 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from main import views
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
     path('users/', include('users.urls')),
     path('booking/', include('booking.urls')),
     path('teams/', include('teams.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('', include('main.urls')),  # route to main app
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
