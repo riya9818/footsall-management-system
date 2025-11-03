@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from teams.models import Team  # we’ll create Team later
+from teams.models import Team  
 
 class Booking(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
