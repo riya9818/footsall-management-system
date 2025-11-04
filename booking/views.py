@@ -9,9 +9,20 @@ def booking_create(request):
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save(commit=False)
-            booking.booked_by = request.user  # user must be logged in
-            booking.save()
-            return redirect('booking_list')
+            booking.booked_by = request.user
+
+            # Check for slot conflict
+            existing = Booking.objects.filter(
+                date=booking.date,
+                start_time__lt=booking.end_time,
+                end_time__gt=booking.start_time
+            )
+            if existing.exists():
+                form.add_error(None, " This time slot is already booked!")
+            else:
+                booking.save()
+                return redirect('booking_list')
+
     else:
         form = BookingForm()
     return render(request, 'booking/booking_form.html', {'form': form})
