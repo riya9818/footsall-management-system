@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import BookingForm
 from .models import Booking
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def booking_create(request):
     if request.method == "POST":
         form = BookingForm(request.POST)
@@ -14,6 +16,7 @@ def booking_create(request):
         form = BookingForm()
     return render(request, 'booking/booking_form.html', {'form': form})
 
+@login_required
 def booking_list(request):
     bookings = Booking.objects.all().order_by('-date', 'start_time')
     return render(request, 'booking/booking_list.html', {'bookings': bookings})
