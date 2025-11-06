@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+<!-- {% extends 'base.html' %}
 {% block title %}{{ form.instance.pk|yesno:"Edit Team,New Team" }} - Footsall{% endblock %}
 {% block content %}
 <div class="container py-5" style="max-width: 650px;">
@@ -26,5 +26,29 @@
       <button type="submit" class="btn btn-dark px-4">Save</button>
     </div>
   </form>
+</div>
+{% endblock %} -->
+{% extends 'base.html' %}
+{% block title %}Create Team - Footsall{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow border-0 rounded-4">
+        <div class="card-body p-4">
+          <h2 class="fw-bold mb-4 text-center">Create a New Team</h2>
+          <form method="POST" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+              {{ form.name.label_tag }}
+              {{ form.name }}
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100 py-2 mt-3">Create Team</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
