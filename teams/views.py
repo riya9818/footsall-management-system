@@ -11,7 +11,9 @@ def team_create(request):
     if request.method == 'POST':
         form = TeamForm(request.POST)
         if form.is_valid():
-            form.save()
+            team = form.save(commit=False)
+            team.save()
+            form.save_m2m()  # saves many-to-many relationships (players)
             return redirect('team_list')
     else:
         form = TeamForm()
