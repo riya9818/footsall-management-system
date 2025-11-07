@@ -9,17 +9,18 @@
           <h2 class="fw-bold mb-4 text-center">Create a New Team</h2>
           <form method="POST">
             {% csrf_token %}
-
             <div class="mb-3">
               {{ form.name.label_tag }}
               {{ form.name }}
             </div>
-
             <div class="mb-3">
               {{ form.captain.label_tag }}
               {{ form.captain }}
             </div>
-
+            <div class="mb-3">
+              {{ form.players.label_tag }}
+              {{ form.players }}
+            </div>
             <button type="submit" class="btn btn-dark w-100 py-2 mt-3">Create Team</button>
           </form>
         </div>
