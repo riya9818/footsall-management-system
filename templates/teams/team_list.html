@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Teams{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="d-flex justify-content-between mb-3">
+    <h2>Teams</h2>
+    <a class="btn btn-dark" href="{% url 'add_team' %}">+ Create Team</a>
+  </div>
+
+  <div class="row">
+    {% for team in teams %}
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ team.name }}</h5>
+            <p class="card-text">
+              Captain: {{ team.captain|default:"—" }}<br>
+              Members: {{ team.members.count }}
+            </p>
+            <a href="{% url 'team_detail' team.id %}" class="btn btn-outline-dark">Manage</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12 text-muted">No teams yet.</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

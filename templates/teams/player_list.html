@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Players{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="d-flex justify-content-between mb-3">
+    <h2>Players</h2>
+    <a class="btn btn-dark" href="{% url 'add_player' %}">+ Add Player</a>
+  </div>
+  <ul class="list-group">
+    {% for p in players %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ p.name }}</strong> <small class="text-muted">({{ p.get_position_display }})</small><br>
+          <small class="text-muted">Age: {{ p.age }} • {{ p.contact }}</small>
+        </div>
+      </li>
+    {% empty %}
+      <li class="list-group-item text-muted">No players yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
