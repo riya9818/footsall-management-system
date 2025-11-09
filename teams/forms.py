@@ -1,28 +1,16 @@
 from django import forms
 from .models import Team, Player
-from django.contrib.auth.models import User
+
+class PlayerForm(forms.ModelForm):
+    class Meta:
+        model = Player
+        fields = ['name', 'age', 'position', 'contact']
+
 
 class TeamForm(forms.ModelForm):
     class Meta:
         model = Team
         fields = ['name', 'captain', 'members']
-
         widgets = {
-            'name': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Enter team name'
-            }),
-            'captain': forms.Select(attrs={
-                'class': 'form-select',
-            }),
-            'members': forms.SelectMultiple(attrs={
-                'class': 'form-select',
-                'size': '6'
-            }),
-        }
-
-        labels = {
-            'name': 'Team Name',
-            'captain': 'Select Captain',
-            'members': 'Select Players',
+            'members': forms.CheckboxSelectMultiple(),
         }
