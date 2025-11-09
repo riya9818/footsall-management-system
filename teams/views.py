@@ -15,3 +15,17 @@ def add_player(request):
     else:
         form = PlayerForm()
     return render(request, 'teams/add_player.html', {'form': form})
+
+def team_list(request):
+    teams = Team.objects.all()
+    return render(request, 'teams/team_list.html', {'teams': teams})
+
+def add_team(request):
+    if request.method == 'POST':
+        form = TeamForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('team_list')
+    else:
+        form = TeamForm()
+    return render(request, 'teams/add_team.html', {'form': form})
