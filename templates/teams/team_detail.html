@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}{{ team.name }}{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>{{ team.name }}</h2>
+    <div>
+      <a class="btn btn-outline-secondary me-2" href="{% url 'team_list' %}">Back</a>
+      <a class="btn btn-dark" href="{% url 'team_detail' team.id %}">Refresh</a>
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <p><strong>Captain:</strong> {{ team.captain|default:"—" }}</p>
+      <p><strong>Members ({{ team.members.count }}):</strong></p>
+      <ul class="list-group">
+        {% for p in team.members.all %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong>{{ p.name }}</strong> <small class="text-muted">• {{ p.get_position_display }}</small><br>
+              <small class="text-muted">{{ p.contact }}</small>
+            </div>
+            <form method="post" action="{% url 'remove_player_from_team' team.id p.id %}">
+              {% csrf_token %}
+              <button class="btn btn-sm btn-outline-danger">Remove</button>
+            </form>
+          </li>
+        {% empty %}
+          <li class="list-group-item text-muted">No members yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="mb-3">Add existing player</h5>
+      <form method="post" action="{% url 'add_player_to_team' team.id %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <select name="player_id" class="form-select">
+            <option value="">-- select player --</option>
+            {% for p in players %}
+              <option value="{{ p.id }}">{{ p.name }} ({{ p.get_position_display }})</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button class="btn btn-dark">Add Player</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

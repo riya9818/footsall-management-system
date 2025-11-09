@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% block title %}Create Team{% endblock %}
 {% block content %}
-<div class="container">
-  <h2>Create New Team</h2>
-  <form method="POST">
+<div class="container py-4" style="max-width:700px;">
+  <h2 class="mb-3">Create Team</h2>
+  <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Create Team</button>
+    <button class="btn btn-dark">Create Team</button>
   </form>
 </div>
 {% endblock %}
