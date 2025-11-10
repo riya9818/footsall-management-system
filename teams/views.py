@@ -39,6 +39,18 @@ def team_detail(request, team_id):
     players = Player.objects.exclude(id__in=team.members.all())
     return render(request, 'teams/team_detail.html', {'team': team, 'players': players})
 
+
+def edit_team(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+    if request.method == 'POST':
+        form = TeamForm(request.POST, instance=team)
+        if form.is_valid():
+            form.save()
+            return redirect('team_list')
+    else:
+        form = TeamForm(instance=team)
+    return render(request, 'teams/edit_team.html', {'form': form, 'team': team})
+
 def add_player_to_team(request, team_id):
     team = get_object_or_404(Team, id=team_id)
     if request.method == 'POST':
