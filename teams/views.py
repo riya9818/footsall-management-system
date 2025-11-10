@@ -51,6 +51,13 @@ def edit_team(request, team_id):
         form = TeamForm(instance=team)
     return render(request, 'teams/edit_team.html', {'form': form, 'team': team})
 
+def delete_team(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+    if request.method == 'POST':
+        team.delete()
+        return redirect('team_list')
+    return render(request, 'teams/delete_team.html', {'team': team})
+
 def add_player_to_team(request, team_id):
     team = get_object_or_404(Team, id=team_id)
     if request.method == 'POST':
