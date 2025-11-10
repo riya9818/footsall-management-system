@@ -54,3 +54,14 @@ def remove_player_from_team(request, team_id, player_id):
     if request.method == 'POST':
         team.members.remove(player)
     return redirect('team_detail', team_id=team.id)
+
+def edit_player(request, player_id):
+    player = get_object_or_404(Player, id=player_id)
+    if request.method == 'POST':
+        form = PlayerForm(request.POST, instance=player)
+        if form.is_valid():
+            form.save()
+            return redirect('player_list')
+    else:
+        form = PlayerForm(instance=player)
+    return render(request, 'teams/edit_player.html', {'form': form, 'player': player})
