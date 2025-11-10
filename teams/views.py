@@ -65,3 +65,10 @@ def edit_player(request, player_id):
     else:
         form = PlayerForm(instance=player)
     return render(request, 'teams/edit_player.html', {'form': form, 'player': player})
+
+def delete_player(request, player_id):
+    player = get_object_or_404(Player, id=player_id)
+    if request.method == 'POST':
+        player.delete()
+        return redirect('player_list')
+    return render(request, 'teams/delete_player.html', {'player': player})
