@@ -1,33 +1,18 @@
-from django.shortcuts import render, redirect
-from .forms import BookingForm
+# bookings/views.py
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Booking
-from django.contrib.auth.decorators import login_required
+from .forms import BookingForm
 
-@login_required
-def booking_create(request):
-    if request.method == "POST":
+def booking_list(request):
+    bookings = Booking.objects.all().order_by('-date', '-time')
+    return render(request, 'bookings/booking_list.html', {'bookings': bookings})
+
+def book_match(request):
+    if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            booking = form.save(commit=False)
-            booking.booked_by = request.user
-
-            # Check for slot conflict
-            existing = Booking.objects.filter(
-                date=booking.date,
-                start_time__lt=booking.end_time,
-                end_time__gt=booking.start_time
-            )
-            if existing.exists():
-                form.add_error(None, " This time slot is already booked!")
-            else:
-                booking.save()
-                return redirect('booking_list')
-
+            form.save()
+            return redirect('booking_list')
     else:
         form = BookingForm()
-    return render(request, 'booking/booking_form.html', {'form': form})
-
-@login_required
-def booking_list(request):
-    bookings = Booking.objects.all().order_by('-date', 'start_time')
-    return render(request, 'booking/booking_list.html', {'bookings': bookings})
+    return render(request, 'bookings/book_match.html', {'form': form})
