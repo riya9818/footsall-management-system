@@ -1,21 +1,29 @@
+# bookings/models.py
 from django.db import models
-from django.contrib.auth.models import User
-from teams.models import Team  
+from teams.models import Team
 
-class Booking(models.Model):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    booked_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('confirmed', 'Confirmed'),
-        ('cancelled', 'Cancelled'),
-    ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+class Ground(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=150)
+    price_per_hour = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return f"{self.team.name} - {self.date} ({self.start_time}-{self.end_time})"
+        return self.name
+
+class Booking(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+    ]
+
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='bookings')
+    opponent_team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True, related_name='opponent_matches')
+    ground = models.ForeignKey(Ground, on_delete=models.CASCADE)
+    date = models.DateField()
+    time = models.TimeField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+
+    def __str__(self):
+        return f"{self.team.name} vs {self.opponent_team} @ {self.ground.name}"
