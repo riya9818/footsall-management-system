@@ -1,31 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2 class="mb-4 text-danger">All Bookings</h2>
-<table class="table table-dark table-striped">
-    <thead>
+<div class="container mt-4">
+  <h2 class="mb-3">All Bookings</h2>
+  <a href="{% url 'book_match' %}" class="btn btn-primary mb-3">+ New Booking</a>
+
+  {% if bookings %}
+    <table class="table table-bordered table-striped">
+      <thead>
         <tr>
-            <th>Team</th>
-            <th>Date</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>Status</th>
+          <th>Team</th>
+          <th>Opponent</th>
+          <th>Ground</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
         {% for booking in bookings %}
         <tr>
-            <td>{{ booking.team.name }}</td>
-            <td>{{ booking.date }}</td>
-            <td>{{ booking.start_time }}</td>
-            <td>{{ booking.end_time }}</td>
-            <td>{{ booking.status }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="5">No bookings yet</td>
+          <td>{{ booking.team.name }}</td>
+          <td>{{ booking.opponent_team.name|default:"-" }}</td>
+          <td>{{ booking.ground.name }}</td>
+          <td>{{ booking.date }}</td>
+          <td>{{ booking.time }}</td>
+          <td><span class="badge bg-info text-dark">{{ booking.status }}</span></td>
         </tr>
         {% endfor %}
-    </tbody>
-</table>
-<a href="{% url 'booking_create' %}" class="btn btn-danger mt-3">Add New Booking</a>
+      </tbody>
+    </table>
+  {% else %}
+    <p>No bookings yet.</p>
+  {% endif %}
+</div>
 {% endblock %}
