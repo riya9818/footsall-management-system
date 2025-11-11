@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Book a Match</h2>
+  <form method="POST" class="mt-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success mt-2">Submit Booking</button>
+    <a href="{% url 'booking_list' %}" class="btn btn-secondary mt-2">Cancel</a>
+  </form>
+</div>
+{% endblock %}
