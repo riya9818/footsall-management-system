@@ -20,3 +20,9 @@ def book_match(request):
 def manage_bookings(request):
     bookings = Booking.objects.all().order_by('-date')
     return render(request, 'bookings/manage_bookings.html', {'bookings': bookings})
+
+def update_booking_status(request, booking_id, new_status):
+    booking = get_object_or_404(Booking, id=booking_id)
+    booking.status = new_status
+    booking.save()
+    return redirect('manage_bookings')
