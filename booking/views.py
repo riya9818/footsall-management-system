@@ -16,3 +16,7 @@ def book_match(request):
     else:
         form = BookingForm()
     return render(request, 'bookings/book_match.html', {'form': form})
+
+def manage_bookings(request):
+    bookings = Booking.objects.all().order_by('-date')
+    return render(request, 'bookings/manage_bookings.html', {'bookings': bookings})
