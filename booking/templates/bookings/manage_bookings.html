@@ -14,3 +14,13 @@
         <th>Actions</th>
       </tr>
     </thead>
+     <tbody>
+      {% for b in bookings %}
+      <tr>
+        <td>{{ b.team.name }}</td>
+        <td>{{ b.opponent_team.name }}</td>
+        <td>{{ b.ground.name }}</td>
+        <td>{{ b.date }}</td>
+        <td>{{ b.time }}</td>
+        <td>{{ b.status }}</td>
+        <td>
