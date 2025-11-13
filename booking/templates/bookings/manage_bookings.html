@@ -24,3 +24,12 @@
         <td>{{ b.time }}</td>
         <td>{{ b.status }}</td>
         <td>
+            {% if b.status == 'pending' %}
+            <a href="{% url 'update_booking_status' b.id 'approved' %}" class="btn btn-success btn-sm">Approve</a>
+            <a href="{% url 'update_booking_status' b.id 'cancelled' %}" class="btn btn-danger btn-sm">Reject</a>
+          {% elif b.status == 'approved' %}
+            <a href="{% url 'update_booking_status' b.id 'completed' %}" class="btn btn-primary btn-sm">Mark Completed</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
