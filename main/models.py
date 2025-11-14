@@ -1,4 +1,5 @@
 from django.db import models
+from teams import models
 
 # Create your models here.
 class Match(models.Model):
