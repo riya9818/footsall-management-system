@@ -7,3 +7,6 @@ class Match(models.Model):
     match_date = models.DateField()
     match_time = models.TimeField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.home_team} vs {self.away_team} on {self.match_date}"
