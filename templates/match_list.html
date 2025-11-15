@@ -7,3 +7,13 @@
         <th>Date</th>
         <th>Time</th>
     </tr>
+
+    {% for m in matches %}
+    <tr>
+        <td>{{ m.home_team }}</td>
+        <td>{{ m.away_team }}</td>
+        <td>{{ m.match_date }}</td>
+        <td>{{ m.match_time }}</td>
+    </tr>
+    {% endfor %}
+</table>
