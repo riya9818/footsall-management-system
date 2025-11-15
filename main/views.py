@@ -21,3 +21,7 @@ def add_match(request):
         form = MatchForm()
 
     return render(request, 'futsal/add_match.html', {'form': form})
+
+def match_list(request):
+    matches = Match.objects.all().order_by('-match_date', '-match_time')
+    return render(request, 'futsal/match_list.html', {'matches': matches})
