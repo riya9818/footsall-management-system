@@ -48,3 +48,8 @@ def match_detail(request, match_id):
         result = match.matchresult
     except MatchResult.DoesNotExist:
         result = None
+
+    return render(request, 'futsal/match_detail.html', {
+        'match': match,
+        'result': result
+    })
