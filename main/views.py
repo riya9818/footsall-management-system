@@ -25,3 +25,19 @@ def add_match(request):
 def match_list(request):
     matches = Match.objects.all().order_by('-match_date', '-match_time')
     return render(request, 'futsal/match_list.html', {'matches': matches})
+
+def add_match_result(request, match_id):
+    match = Match.objects.get(id=match_id)
+
+    if request.method == 'POST':
+        form = MatchResultForm(request.POST)
+        if form.is_valid():
+            result = form.save(commit=False)
+            result.match = match
+            result.save()
+            messages.success(request, "Match result added!")
+            return redirect('match_detail', match_id=match.id)
+    else:
+        form = MatchResultForm()
+
+    return render(request, 'futsal/add_match_result.html', {'form': form, 'match': match})
