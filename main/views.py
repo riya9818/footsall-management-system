@@ -41,3 +41,10 @@ def add_match_result(request, match_id):
         form = MatchResultForm()
 
     return render(request, 'futsal/add_match_result.html', {'form': form, 'match': match})
+
+def match_detail(request, match_id):
+    match = Match.objects.get(id=match_id)
+    try:
+        result = match.matchresult
+    except MatchResult.DoesNotExist:
+        result = None
