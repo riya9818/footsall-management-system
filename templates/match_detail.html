@@ -1,3 +1,8 @@
 <h2>Match Detail</h2>
 <p>{{ match.home_team }} vs {{ match.away_team }}</p>
 <p>{{ match.match_date }} {{ match.match_time }}</p>
+
+{% if result %}
+    <h3>Final Score: {{ result.home_score }} - {{ result.away_score }}</h3>
+    <p>Man of the Match: {{ result.man_of_the_match }}</p>
+{% else %}
