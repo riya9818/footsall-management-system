@@ -6,3 +6,6 @@
     <h3>Final Score: {{ result.home_score }} - {{ result.away_score }}</h3>
     <p>Man of the Match: {{ result.man_of_the_match }}</p>
 {% else %}
+     <a href="{% url 'add_match_result' match.id %}">Add Result</a>
+{% endif %}
+
