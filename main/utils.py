@@ -55,3 +55,9 @@ def calculate_standings():
             standings[away]['draws'] += 1
             standings[home]['points'] += 1
             standings[away]['points'] += 1
+
+         # Calculate Goal Difference
+    for team in standings:
+        standings[team]['gd'] = standings[team]['gf'] - standings[team]['ga']
+
+    return standings
