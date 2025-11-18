@@ -38,3 +38,20 @@ def calculate_standings():
         standings[home]['ga'] += away_score
         standings[away]['gf'] += away_score
         standings[away]['ga'] += home_score
+
+         # Win / Draw / Loss
+        if home_score > away_score:  # Home wins
+            standings[home]['wins'] += 1
+            standings[home]['points'] += 3
+            standings[away]['losses'] += 1
+
+        elif home_score < away_score:  # Away wins
+            standings[away]['wins'] += 1
+            standings[away]['points'] += 3
+            standings[home]['losses'] += 1
+
+        else:  # Draw
+            standings[home]['draws'] += 1
+            standings[away]['draws'] += 1
+            standings[home]['points'] += 1
+            standings[away]['points'] += 1
