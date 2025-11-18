@@ -25,3 +25,16 @@ def calculate_standings():
                     'gd': 0,
                     'points': 0,
                 }
+
+        # Update played
+        standings[home]['played'] += 1
+        standings[away]['played'] += 1
+
+        # Goals
+        home_score = result.home_score
+        away_score = result.away_score
+
+        standings[home]['gf'] += home_score
+        standings[home]['ga'] += away_score
+        standings[away]['gf'] += away_score
+        standings[away]['ga'] += home_score
