@@ -53,3 +53,15 @@ def match_detail(request, match_id):
         'match': match,
         'result': result
     })
+
+def league_standings(request):
+    standings = calculate_standings()
+
+    # Convert dict to list and sort by points, GD, GF
+    table = sorted(
+        standings.items(),
+        key=lambda x: (x[1]['points'], x[1]['gd'], x[1]['gf']),
+        reverse=True
+    )
+
+    return render(request, 'futsal/standings.html', {'table': table})
