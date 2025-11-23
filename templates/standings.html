@@ -17,3 +17,19 @@
                 <th>PTS</th>
                  </tr>
         </thead>
+        
+        <tbody>
+        {% for team, stats in table %}
+            <tr>
+                <td>{{ team.name }}</td>
+                <td>{{ stats.played }}</td>
+                <td>{{ stats.wins }}</td>
+                <td>{{ stats.draws }}</td>
+                <td>{{ stats.losses }}</td>
+                <td>{{ stats.gf }}</td>
+                <td>{{ stats.ga }}</td>
+                <td>{{ stats.gd }}</td>
+                <td><b>{{ stats.points }}</b></td>
+            </tr>
+        {% endfor %}
+        </tbody>
