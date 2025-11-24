@@ -1,4 +1,6 @@
 # futsalapp/forms.py
+from django import forms
+from .models import PlayerMatchStats
 
 class MatchForm(forms.ModelForm):
     class Meta:
