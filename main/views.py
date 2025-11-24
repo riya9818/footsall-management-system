@@ -65,3 +65,32 @@ def league_standings(request):
     )
 
     return render(request, 'futsal/standings.html', {'table': table})
+
+def add_player_stats(request, match_id):
+    match = Match.objects.get(id=match_id)
+    players = Player.objects.filter(team__in=[match.home_team, match.away_team])
+
+    if request.method == "POST":
+        for player in players:
+            goals = request.POST.get(f"goals_{player.id}", 0)
+            assists = request.POST.get(f"assists_{player.id}", 0)
+            yellow = request.POST.get(f"yellow_{player.id}", 0)
+            red = request.POST.get(f"red_{player.id}", 0)
+
+            PlayerMatchStats.objects.update_or_create(
+                match=match,
+                player=player,
+                defaults={
+                    'goals': goals,
+                    'assists': assists,
+                    'yellow_cards': yellow,
+                    'red_cards': red
+                }
+            )
+
+        return redirect('match_detail', match_id=match.id)
+
+    return render(request, 'futsal/add_player_stats.html', {
+        'match': match,
+        'players': players
+    })
