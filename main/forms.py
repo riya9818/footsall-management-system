@@ -2,6 +2,12 @@
 from django import forms
 from .models import PlayerMatchStats
 
+
+class PlayerStatsForm(forms.ModelForm):
+    class Meta:
+        model = PlayerMatchStats
+        fields = ['goals', 'assists', 'yellow_cards', 'red_cards']
+
 class MatchForm(forms.ModelForm):
     class Meta:
         model = Match
