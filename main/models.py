@@ -22,3 +22,8 @@ class MatchResult(models.Model):
 
     def __str__(self):
         return f"Result of {self.match}"
+    
+class PlayerMatchStats(models.Model):
+    match = models.ForeignKey(Match, on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+
