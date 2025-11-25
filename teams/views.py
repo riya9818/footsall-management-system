@@ -91,3 +91,14 @@ def delete_player(request, player_id):
         player.delete()
         return redirect('player_list')
     return render(request, 'teams/delete_player.html', {'player': player})
+
+
+
+def top_scorers(request):
+    scorers = PlayerMatchStats.objects.values(
+        'player__name', 'player__team__name'
+    ).annotate(
+        total_goals=Sum('goals')
+    ).order_by('-total_goals')
+
+    return render(request, 'futsal/top_scorers.html', {'scorers': scorers})
