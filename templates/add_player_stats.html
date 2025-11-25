@@ -17,3 +17,20 @@
                     <th>Red</th>
                 </tr>
             </thead>
+            <tbody>
+                {% for player in players %}
+                <tr>
+                    <td>{{ player.name }}</td>
+                    <td><input type="number" name="goals_{{ player.id }}" class="form-control" min="0"></td>
+                    <td><input type="number" name="assists_{{ player.id }}" class="form-control" min="0"></td>
+                    <td><input type="number" name="yellow_{{ player.id }}" class="form-control" min="0"></td>
+                    <td><input type="number" name="red_{{ player.id }}" class="form-control" min="0"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <button class="btn btn-success">Save Stats</button>
+    </form>
+</div>
+{% endblock %}
