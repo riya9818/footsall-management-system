@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Team, Player
 from .forms import TeamForm, PlayerForm
 from django.urls import reverse
-
+from django.db.models import Sum
 # Players
 def player_list(request):
     players = Player.objects.all().order_by('name')
