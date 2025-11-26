@@ -12,3 +12,12 @@
                 <th>Goals</th>
             </tr>
         </thead>
+        <tbody>
+        {% for s in scorers %}
+            <tr>
+                <td>{{ s.player__name }}</td>
+                <td>{{ s.player__team__name }}</td>
+                <td><strong>{{ s.total_goals }}</strong></td>
+            </tr>
+        {% endfor %}
+        </tbody>
