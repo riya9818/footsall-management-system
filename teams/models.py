@@ -40,4 +40,5 @@ class PlayerAvailability(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="available")
 
-    
+    def __str__(self):
+        return f"{self.player.name} - {self.get_status_display()}"
