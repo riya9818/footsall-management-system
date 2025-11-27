@@ -22,3 +22,7 @@ class TeamForm(forms.ModelForm):
             'captain': forms.Select(attrs={'class': 'form-select'}),
             'members': forms.CheckboxSelectMultiple(),
         }
+class PlayerAvailabilityForm(forms.ModelForm):
+    class Meta:
+        model = PlayerAvailability
+        fields = ['status']
