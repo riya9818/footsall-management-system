@@ -42,3 +42,11 @@ class PlayerAvailability(models.Model):
 
     def __str__(self):
         return f"{self.player.name} - {self.get_status_display()}"
+
+class MatchAttendance(models.Model):
+    match = models.ForeignKey(Match, on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    present = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.player.name} - {'Present' if self.present else 'Absent'}"
