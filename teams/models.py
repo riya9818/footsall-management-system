@@ -28,3 +28,16 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
+
+class PlayerAvailability(models.Model):
+    STATUS_CHOICES = [
+        ("available", "Available"),
+        ("maybe", "Maybe"),
+        ("unavailable", "Unavailable"),
+    ]
+
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    match = models.ForeignKey(Match, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="available")
+
+    
