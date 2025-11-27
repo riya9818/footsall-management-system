@@ -102,3 +102,22 @@ def top_scorers(request):
     ).order_by('-total_goals')
 
     return render(request, 'futsal/top_scorers.html', {'scorers': scorers})
+
+def mark_availability(request, match_id):
+    match = Match.objects.get(id=match_id)
+    players = Player.objects.filter(team=match.home_team)  # or both teams
+
+    if request.method == "POST":
+        for player in players:
+            status = request.POST.get(f"status_{player.id}", "available")
+            PlayerAvailability.objects.update_or_create(
+                player=player,
+                match=match,
+                defaults={'status': status}
+            )
+        return redirect('match_detail', match_id=match.id)
+
+    return render(request, 'futsal/mark_availability.html', {
+        'match': match,
+        'players': players,
+    })
