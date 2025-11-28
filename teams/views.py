@@ -126,9 +126,17 @@ def take_attendance(request, match_id):
     match = Match.objects.get(id=match_id)
     players = Player.objects.filter(team=match.home_team)
 
+    if request.method == "POST":
+        for player in players:
+            present = request.POST.get(f"present_{player.id}") == "on"
+            MatchAttendance.objects.update_or_create(
+                match=match,
+                player=player,
+                defaults={'present': present}
+            )
+        return redirect('match_detail', match_id=match.id)
 
-
-     return render(request, 'futsal/take_attendance.html', {
+    return render(request, 'futsal/take_attendance.html', {
         'match': match,
         'players': players,
     })
