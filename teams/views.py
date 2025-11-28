@@ -121,3 +121,14 @@ def mark_availability(request, match_id):
         'match': match,
         'players': players,
     })
+
+def take_attendance(request, match_id):
+    match = Match.objects.get(id=match_id)
+    players = Player.objects.filter(team=match.home_team)
+
+
+
+     return render(request, 'futsal/take_attendance.html', {
+        'match': match,
+        'players': players,
+    })
