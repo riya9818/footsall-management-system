@@ -11,3 +11,22 @@
         <th>Player</th>
         <th>Status</th>
       </tr>
+
+      {% for player in players %}
+      <tr>
+        <td>{{ player.name }}</td>
+        <td>
+          <select name="status_{{ player.id }}" class="form-control">
+            <option value="available">Available</option>
+            <option value="maybe">Maybe</option>
+            <option value="unavailable">Unavailable</option>
+          </select>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <button class="btn btn-success">Save Availability</button>
+  </form>
+</div>
+{% endblock %}
