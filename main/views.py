@@ -108,3 +108,8 @@ def take_attendance(request, match_id):
                 defaults={'present': present}
             )
         return redirect('match_detail', match_id=match.id)
+
+        return render(request, 'futsal/take_attendance.html', {
+        'match': match,
+        'players': players,
+    })
