@@ -11,3 +11,12 @@
         <th>Player</th>
         <th>Present</th>
       </tr>
+       {% for player in players %}
+      <tr>
+        <td>{{ player.name }}</td>
+        <td>
+          <input type="checkbox" name="present_{{ player.id }}">
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
