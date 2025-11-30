@@ -56,3 +56,4 @@ class Match(models.Model):
     opponent = models.CharField(max_length=100)
     match_date = models.DateTimeField()
     location = models.CharField(max_length=200, blank=True)
+     created_at = models.DateTimeField(auto_now_add=True)
