@@ -51,3 +51,7 @@ class MatchAttendance(models.Model):
     def __str__(self):
         return f"{self.player.name} - {'Present' if self.present else 'Absent'}"
 
+class Match(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    opponent = models.CharField(max_length=100)
+    match_date = models.DateTimeField()
