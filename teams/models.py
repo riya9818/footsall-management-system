@@ -56,4 +56,7 @@ class Match(models.Model):
     opponent = models.CharField(max_length=100)
     match_date = models.DateTimeField()
     location = models.CharField(max_length=200, blank=True)
-     created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.team.name} vs {self.opponent} on {self.match_date.strftime('%Y-%m-%d')}"
