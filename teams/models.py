@@ -55,3 +55,4 @@ class Match(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     opponent = models.CharField(max_length=100)
     match_date = models.DateTimeField()
+    location = models.CharField(max_length=200, blank=True)
