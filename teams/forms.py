@@ -1,6 +1,6 @@
 # teams/forms.py
 from django import forms
-from .models import Team, Player
+from .models import Player, Team, PlayerAvailability, Match, MatchAttendance
 
 class PlayerForm(forms.ModelForm):
     class Meta:
