@@ -23,7 +23,7 @@ urlpatterns = [
     path('teams/<int:team_id>/add_player/', views.add_player_to_team, name='add_player_to_team'),
     path('teams/<int:team_id>/remove_player/<int:player_id>/', views.remove_player_from_team, name='remove_player_from_team'),
 
-    path('match/<int:match_id>/availability/', mark_availability, name='mark_availability'),
-    path('match/<int:match_id>/attendance/', take_attendance, name='take_attendance'),
+    path('match/<int:match_id>/availability/', views.mark_availability, name='mark_availability'),
+    path('match/<int:match_id>/attendance/', views.take_attendance, name='take_attendance'),
 
 ]
