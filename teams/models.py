@@ -1,4 +1,3 @@
-# teams/models.py
 from django.db import models
 
 class Player(models.Model):
@@ -29,6 +28,19 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
+
+# 🔥 MOVE MATCH MODEL ABOVE THE OTHER MODELS THAT USE IT
+class Match(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    opponent = models.CharField(max_length=100)
+    match_date = models.DateTimeField()
+    location = models.CharField(max_length=200, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.team.name} vs {self.opponent} on {self.match_date.strftime('%Y-%m-%d')}"
+
+
 class PlayerAvailability(models.Model):
     STATUS_CHOICES = [
         ("available", "Available"),
@@ -43,6 +55,7 @@ class PlayerAvailability(models.Model):
     def __str__(self):
         return f"{self.player.name} - {self.get_status_display()}"
 
+
 class MatchAttendance(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
@@ -50,13 +63,3 @@ class MatchAttendance(models.Model):
 
     def __str__(self):
         return f"{self.player.name} - {'Present' if self.present else 'Absent'}"
-
-class Match(models.Model):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    opponent = models.CharField(max_length=100)
-    match_date = models.DateTimeField()
-    location = models.CharField(max_length=200, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    
-    def __str__(self):
-        return f"{self.team.name} vs {self.opponent} on {self.match_date.strftime('%Y-%m-%d')}"
