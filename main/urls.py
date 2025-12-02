@@ -2,7 +2,7 @@
 
 from django.urls import path
 from . import views
-from main.views import mark_availability
+
 from .views import league_standings
 from teams.views import mark_availability
 
