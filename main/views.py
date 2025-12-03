@@ -70,6 +70,42 @@ def calculate_standings():
         goals_for = 0
         goals_against = 0
 
+        for match in matches_home:
+            goals_for += match.home_score
+            goals_against += match.away_score
+            if match.home_score > match.away_score:
+                wins += 1
+            elif match.home_score == match.away_score:
+                draws += 1
+            else:
+                losses += 1
+
+        for match in matches_away:
+            goals_for += match.away_score
+            goals_against += match.home_score
+            if match.away_score > match.home_score:
+                wins += 1
+            elif match.away_score == match.home_score:
+                draws += 1
+            else:
+                losses += 1
+
+        points = wins * 3 + draws
+
+        standings.append({
+            "team": team,
+            "played": played,
+            "wins": wins,
+            "draws": draws,
+            "losses": losses,
+            "gf": goals_for,
+            "ga": goals_against,
+            "gd": goals_for - goals_against,
+            "points": points,
+        })
+
+    return sorted(standings, key=lambda x: (-x["points"], -x["gd"]))
+
 def league_standings(request):
     standings = calculate_standings()
 
