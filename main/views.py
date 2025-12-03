@@ -54,6 +54,13 @@ def match_detail(request, match_id):
         'result': result
     })
 
+def calculate_standings():
+    from teams.models import Team, Match
+
+    teams = Team.objects.all()
+    standings = []
+
+
 def league_standings(request):
     standings = calculate_standings()
 
@@ -113,3 +120,4 @@ def take_attendance(request, match_id):
         'match': match,
         'players': players,
     })
+
