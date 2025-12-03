@@ -59,7 +59,16 @@ def calculate_standings():
 
     teams = Team.objects.all()
     standings = []
+     for team in teams:
+        matches_home = Match.objects.filter(home_team=team)
+        matches_away = Match.objects.filter(away_team=team)
 
+        played = matches_home.count() + matches_away.count()
+        wins = 0
+        draws = 0
+        losses = 0
+        goals_for = 0
+        goals_against = 0
 
 def league_standings(request):
     standings = calculate_standings()
