@@ -140,3 +140,11 @@ def take_attendance(request, match_id):
         'match': match,
         'players': players,
     })
+
+class Match(models.Model):
+    # if you have a separate matches app, adapt import
+    team = models.ForeignKey('Team', on_delete=models.CASCADE)
+    opponent = models.CharField(max_length=100)
+    match_date = models.DateTimeField()
+
+class PlayerMatchStats(models.Model):
