@@ -154,3 +154,26 @@ class PlayerMatchStats(models.Model):
     assists = models.PositiveIntegerField(default=0)
     yellow_cards = models.PositiveIntegerField(default=0)
     red_cards = models.PositiveIntegerField(default=0)
+
+def player_performance_summary(request):
+    """
+    Aggregates per-player totals:
+    - matches_played (from PlayerMatchStats)
+    - total_goals, total_assists
+    - attendance_count (MatchAttendance.present=True)
+    - availability_percent (available / total availability marks) * 100
+    """
+
+    players = Player.objects.all().annotate(
+        # Totals from PlayerMatchStats
+        total_goals=Coalesce(Sum('playermatchstats__goals'), 0),
+        total_assists=Coalesce(Sum('playermatchstats__assists'), 0),
+        matches_played=Coalesce(Count('playermatchstats__match', distinct=True), 0),
+
+        # Attendance count (present=True)
+        attendance_count=Coalesce(Count('matchattendance', filter=Q(matchattendance__present=True)), 0),
+
+        # Availability counts: available vs total
+        available_count=Coalesce(Count('playeravailability', filter=Q(playeravailability__status='available')), 0),
+        availability_total=Coalesce(Count('playeravailability'), 0),
+    )
