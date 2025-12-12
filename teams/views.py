@@ -177,3 +177,16 @@ def player_performance_summary(request):
         available_count=Coalesce(Count('playeravailability', filter=Q(playeravailability__status='available')), 0),
         availability_total=Coalesce(Count('playeravailability'), 0),
     )
+
+    # Compute availability_percent in Python (safer, readable)
+    # Build final list so template can easily iterate and sort
+    rows = []
+    for p in players:
+        total_matches = p.matches_played or 0
+        goals = p.total_goals or 0
+        assists = p.total_assists or 0
+        attendance = p.attendance_count or 0
+        avail_total = p.availability_total or 0
+        avail_yes = p.available_count or 0
+        availability_percent = round((avail_yes / avail_total) * 100, 1) if avail_total > 0 else None
+  
