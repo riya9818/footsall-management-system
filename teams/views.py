@@ -201,3 +201,6 @@ def player_performance_summary(request):
             'goals_per_match': round(goals / total_matches, 2) if total_matches > 0 else 0,
             'assists_per_match': round(assists / total_matches, 2) if total_matches > 0 else 0,
         })
+    
+    # sort by goals desc (top scorers first) — change as you like
+    rows = sorted(rows, key=lambda r: (-r['goals'], -r['matches_played'], -r['assists']))
