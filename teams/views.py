@@ -204,3 +204,4 @@ def player_performance_summary(request):
     
     # sort by goals desc (top scorers first) — change as you like
     rows = sorted(rows, key=lambda r: (-r['goals'], -r['matches_played'], -r['assists']))
+    return render(request, 'teams/player_performance_summary.html', {'rows': rows})
