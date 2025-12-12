@@ -189,4 +189,15 @@ def player_performance_summary(request):
         avail_total = p.availability_total or 0
         avail_yes = p.available_count or 0
         availability_percent = round((avail_yes / avail_total) * 100, 1) if avail_total > 0 else None
-  
+    
+    rows.append({
+            'player': p,
+            'matches_played': total_matches,
+            'goals': goals,
+            'assists': assists,
+            'attendance': attendance,
+            'availability_percent': availability_percent,
+            # handy derived stats
+            'goals_per_match': round(goals / total_matches, 2) if total_matches > 0 else 0,
+            'assists_per_match': round(assists / total_matches, 2) if total_matches > 0 else 0,
+        })
